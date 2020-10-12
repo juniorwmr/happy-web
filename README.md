@@ -9,6 +9,7 @@
 <p align="center">🚀 O projeto está sendo desenvolvimento conforme o WorkShop Next Level Week.</p>
 <p align="center">É um projeto para gestão de visitas ao orfanato <strong>Happy</strong>.</p>
 <p align="center">Este projeto concentra-se na parte FrontEnd (WEB) da aplicação <strong>Happy</strong>.</p>
+<p align="center"><strong>Esta aplicação usa <a href="https://www.typescriptlang.org/">Typescript</a></strong>.</p>
 
 ### Pré-requisitos
 
