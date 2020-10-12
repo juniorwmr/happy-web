@@ -31,6 +31,9 @@ $ cd happy-web
 # Instale as dependências
 $ npm install
 
+# Crie um arquivo na pasta raiz e adicione o seu token do MAPBOX na variável REACT_APP_MAPBOX_TOKEN
+$ touch .env
+
 # Execute a aplicação em modo de desenvolvimento
 $ yarn start
 
