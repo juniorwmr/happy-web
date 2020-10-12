@@ -1,4 +1,6 @@
-# Happy - Web
+<h1 align="center">
+  <img alt="Happy" title="Happy" src="./public/capa_happy.png" width="1000px" />
+</h1>
 
 ## Descrição do Projeto
 
