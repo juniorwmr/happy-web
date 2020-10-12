@@ -1,4 +1,4 @@
-# Autenticação MVC utilizando PHP
+# Happy - Web
 
 ## Descrição do Projeto
 
