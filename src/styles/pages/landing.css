@@ -24,6 +24,7 @@
 
   background: url('../../images/landing.svg') no-repeat 80% center;
   background-size: 40%;
+  background-position-x: 90%;
 }
 
 .content-wrapper main {
@@ -31,14 +32,14 @@
   animation: down 500ms backwards;
 }
 .content-wrapper main h1 {
-  font-size: 76px;
+  font-size: 5rem;
   font-weight: 900;
   line-height: 70px;
 }
 
 .content-wrapper main p {
   margin-top: 40px;
-  font-size: 24px;
+  font-size: 1.5rem;
   line-height: 34px;
 }
 
@@ -47,7 +48,7 @@
   right: 0;
   top: 0;
 
-  font-size: 24px;
+  font-size: 1.3rem;
   line-height: 34px;
 
   display: flex;
@@ -104,5 +105,56 @@
   to {
     opacity: 1;
     transform: translateY(0%);
+  }
+}
+
+@media (max-width: 700px) {
+  #page-landing {
+    padding: 10px;
+    align-items: baseline;
+  }
+
+  #page-landing .content-wrapper {
+    max-height: 650px;
+
+    background-size: 50%;
+    background-position-y: 20%;
+  }
+
+  .content-wrapper main {
+    max-width: 280px;
+    margin-left: 5px;
+    padding-bottom: 30px;
+  }
+
+  .content-wrapper main h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 50px;
+  }
+  .content-wrapper main p {
+    width: 255px;
+  }
+
+  .content-wrapper .enter-app {
+    right: 10px;
+  }
+
+  .content-wrapper .location {
+    position: absolute;
+    right: 5px;
+    top: 20px;
+
+    line-height: 20px;
+  }
+}
+
+@media (max-width: 340px) {
+  .content-wrapper .enter-app {
+    width: 50px;
+    height: 50px;
+
+    right: 10px;
+    bottom: 10px;
   }
 }

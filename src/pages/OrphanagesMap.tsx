@@ -28,8 +28,9 @@ const OrphanagesMap: React.FC = () => {
 
       <Map
         center={[-9.944267, -67.8211988]}
-        zoom={15}
-        style={{ width: '100%', height: '100%' }}
+        zoom={13}
+        keyboard={false}
+        style={{ width: '100vw', height: '100vh' }}
       >
         <TileLayer
           url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
