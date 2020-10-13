@@ -28,6 +28,7 @@
 
 .content-wrapper main {
   max-width: 350px;
+  animation: down 500ms backwards;
 }
 .content-wrapper main h1 {
   font-size: 76px;
@@ -53,6 +54,8 @@
   flex-direction: column;
 
   text-align: right;
+
+  animation: down 500ms backwards;
 }
 
 .content-wrapper strong {
@@ -74,8 +77,32 @@
   justify-content: center;
 
   transition: background-color 0.2s;
+
+  animation: toRight 500ms backwards;
 }
 
 .content-wrapper .enter-app:hover {
   background: #96feff;
+}
+
+@keyframes down {
+  from {
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes toRight {
+  from {
+    opacity: 0;
+    transform: translateX(-35%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
 }
