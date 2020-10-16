@@ -5,11 +5,11 @@ import { LeafletMouseEvent } from 'leaflet';
 
 import { FiPlus } from 'react-icons/fi';
 
-import Sidebar from '../components/Sidebar';
-import { mapIcon } from '../utils/mapIcon';
+import Sidebar from '../../components/Sidebar';
+import { mapIcon } from '../../utils/mapIcon';
 
-import '../styles/pages/create-orphanage.css';
-import { api } from '../services/api';
+import '../../styles/pages/create-orphanage.css';
+import { api } from '../../services/api';
 
 export default function CreateOrphanage() {
   const history = useHistory();

@@ -171,10 +171,6 @@ form.create-orphanage-form button.confirm-button {
   transition: background-color 0.2s;
 }
 
-form.create-orphanage-form button.confirm-button svg {
-  margin-right: 16px;
-}
-
 form.create-orphanage-form button.confirm-button:hover {
   background: #36cf82;
 }
