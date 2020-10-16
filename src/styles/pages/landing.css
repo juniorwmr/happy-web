@@ -27,6 +27,58 @@
   background-position-x: 90%;
 }
 
+#header {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'logo location signin signin sign signin';
+
+  align-items: center;
+}
+
+#header .location {
+  font-size: 1.3rem;
+  line-height: 34px;
+
+  display: flex;
+  flex-direction: column;
+
+  text-align: right;
+
+  animation: down 500ms backwards;
+  grid-area: 'location';
+}
+
+#header img {
+  grid-area: 'logo';
+}
+
+#header .btn-signin {
+  width: 222px;
+  height: 56px;
+  background: #12d4e0;
+  color: '#FFF';
+  grid-area: 'signin';
+  border-radius: 20px;
+
+  justify-self: end;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+
+  transition: 0.2s;
+}
+
+#header .btn-signin:hover {
+  background: #96feff;
+  color: #15c3d6;
+}
+
 .content-wrapper main {
   max-width: 350px;
   animation: down 500ms backwards;
@@ -41,22 +93,6 @@
   margin-top: 40px;
   font-size: 1.5rem;
   line-height: 34px;
-}
-
-.content-wrapper .location {
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  font-size: 1.3rem;
-  line-height: 34px;
-
-  display: flex;
-  flex-direction: column;
-
-  text-align: right;
-
-  animation: down 500ms backwards;
 }
 
 .content-wrapper strong {
