@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiLogIn } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import '../styles/pages/landing.css';
@@ -15,6 +15,9 @@ const Landing: React.FC = () => {
             <strong>Acre</strong>
             <span>Rio Branco</span>
           </div>
+          <Link to="/signin" className="btn-signin icon">
+            <FiLogIn size={30} color="#fff" />
+          </Link>
           <Link to="/signin" className="btn-signin">
             Acesso restrito
           </Link>

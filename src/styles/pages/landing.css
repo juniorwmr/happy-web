@@ -33,7 +33,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 4fr;
   grid-template-rows: 1fr;
-  grid-template-areas: 'logo location signin signin sign signin';
+  grid-template-areas: 'logo location signin signin signin signin';
 
   align-items: center;
 }
@@ -48,19 +48,20 @@
   text-align: right;
 
   animation: down 500ms backwards;
-  grid-area: 'location';
+  grid-area: location;
 }
 
 #header img {
-  grid-area: 'logo';
+  grid-area: logo;
 }
 
 #header .btn-signin {
   width: 222px;
   height: 56px;
   background: #12d4e0;
-  color: '#FFF';
-  grid-area: 'signin';
+  font-size: 1.1rem;
+  color: #fff;
+  grid-area: signin;
   border-radius: 20px;
 
   justify-self: end;
@@ -68,8 +69,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
-  color: inherit;
 
   transition: 0.2s;
 }
@@ -157,6 +156,44 @@
     background-position-y: 20%;
   }
 
+  #header {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 5px;
+    grid-template-areas: 'logo  signin' 'location location';
+  }
+
+  #header img {
+    width: 200px;
+  }
+
+  #header .location {
+    justify-self: start;
+    margin-left: 20px;
+    line-height: 22px;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  #header .btn-signin {
+    display: none;
+  }
+
+  #header .btn-signin.icon {
+    width: 80px;
+    background: #12d4e0;
+    border-radius: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #header .btn-signin.icon:hover {
+    background: #96feff;
+  }
+
   .content-wrapper main {
     max-width: 280px;
     margin-left: 5px;
@@ -174,14 +211,6 @@
 
   .content-wrapper .enter-app {
     right: 10px;
-  }
-
-  .content-wrapper .location {
-    position: absolute;
-    right: 5px;
-    top: 20px;
-
-    line-height: 20px;
   }
 }
 
