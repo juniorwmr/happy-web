@@ -30,7 +30,7 @@ export default function CreateOrphanage() {
     }
     const selectedImages = Array.from(files);
 
-    selectedImages.map((image) => {
+    selectedImages.forEach((image) => {
       setImages((oldImages) => [...oldImages, image]);
     });
 
@@ -38,8 +38,7 @@ export default function CreateOrphanage() {
       return URL.createObjectURL(image);
     });
 
-    selectedImagesPreview.map((selectedImage) => {
-      console.log(selectedImage);
+    selectedImagesPreview.forEach((selectedImage) => {
       setPreviewImages((oldPreviews) => [...oldPreviews, selectedImage]);
     });
   }
@@ -69,7 +68,7 @@ export default function CreateOrphanage() {
       data.append('images', image);
     });
 
-    const response = await api.post('orphanages', data);
+    await api.post('orphanages', data);
     alert('Cadastro realizado com sucesso!');
     history.push('/app');
   }

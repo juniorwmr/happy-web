@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Sidebar from '../../components/Sidebar';
-import { FiUser, FiKey } from 'react-icons/fi';
+import { FiMail, FiKey } from 'react-icons/fi';
 
 import '../../styles/pages/signin.css';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,7 @@ const SignIn: React.FC = () => {
 
             <div className="input-block">
               <label htmlFor="name">E-mail</label>
-              <FiUser size={20} color="#6e6e6e" className="icon key-icon" />
+              <FiMail size={20} color="#6e6e6e" className="icon key-icon" />
               <input id="email" name="email" onChange={() => {}} />
             </div>
             <div className="input-block">
