@@ -1,0 +1,122 @@
+#page-create-user {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+#page-create-user main {
+  flex: 1;
+}
+
+form.create-user-form {
+  width: 75vw;
+  margin: 64px auto;
+
+  background: #ffffff;
+  border: 1px solid #d3e2e5;
+  border-radius: 20px;
+  padding: 35px;
+  overflow: hidden;
+}
+
+form.create-user-form fieldset {
+  border: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+form.create-user-form fieldset + fieldset {
+  margin-top: 80px;
+}
+
+form.create-user-form fieldset .legend {
+  width: 100%;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+form.create-user-form fieldset h1 {
+  font-size: 2rem;
+  line-height: 34px;
+  color: #5c8599;
+  font-weight: 700;
+
+  border-bottom: 1px solid #d3e2e5;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+}
+
+/* Inputs Block */
+form.create-user-form .input-block {
+  position: relative;
+}
+
+form.create-user-form .input-block + .input-block {
+  margin-top: 24px;
+}
+
+form.create-user-form .input-block label {
+  font-size: 1.1rem;
+  display: flex;
+  color: #8fa7b3;
+  margin-bottom: 8px;
+  line-height: 24px;
+}
+
+/* Input */
+
+form.create-user-form .input-block input {
+  width: 100%;
+  height: 40px;
+  padding: 0 30px;
+  background: #f5f8fa;
+  border: 1px solid #d3e2e5;
+  border-radius: 20px;
+  outline: none;
+  font-size: 1.02rem;
+  color: #5c8599;
+
+  transition: 0.2s;
+}
+
+form.create-user-form .input-block input:hover {
+  background: #edeff0;
+  border: 1px solid #d3e2e5;
+  color: #5c8599;
+}
+
+form.create-user-form .input-block input:focus {
+  border: 1px solid #797979;
+}
+
+/* Register Button */
+form.create-user-form button.register-button {
+  margin-top: 50px;
+
+  width: 280px;
+  height: 64px;
+  border: 0;
+  cursor: pointer;
+  background: #3cdc8c;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: 800;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: background-color 0.2s;
+}
+
+@media (max-width: 740px) {
+  form.create-user-form button.register-button {
+    width: 237px;
+  }
+}
