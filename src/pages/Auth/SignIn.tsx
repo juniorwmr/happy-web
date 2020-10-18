@@ -1,15 +1,20 @@
 import React, { FormEvent, useState } from 'react';
-
-import Sidebar from '../../components/Sidebar';
+import { Link, useHistory } from 'react-router-dom';
 import { FiMail, FiKey } from 'react-icons/fi';
 
 import '../../styles/pages/signin.css';
-import { Link } from 'react-router-dom';
+
+import Sidebar from '../../components/Sidebar';
+
 import { api } from '../../services/api';
+import { useAuth } from '../../context/auth';
 
 const SignIn: React.FC = () => {
+  const { setSigned } = useAuth();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
 
   async function handleSignInForm(event: FormEvent) {
     event.preventDefault();
@@ -21,6 +26,11 @@ const SignIn: React.FC = () => {
       });
       if (response.data.auth) {
         alert('Login efetuado com sucesso!');
+        setSigned(true);
+        if (remember) {
+          localStorage.setItem('token', response.data.token);
+        }
+        history.push('/orphanage/create');
       }
     }
   }
@@ -64,10 +74,20 @@ const SignIn: React.FC = () => {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
-            <div className="forget_passowrd-area">
+            <div className="input-block-footer">
               <Link to="/forget_password" className="forget_password">
                 esqueci minha senha
               </Link>
+              <div className="check-box-area">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  name="remember"
+                  defaultChecked={remember}
+                  onChange={() => setRemember(!remember)}
+                />
+                <label htmlFor="remember">Lembrar-me</label>
+              </div>
             </div>
             <button className="access-button" type="submit">
               Acessar

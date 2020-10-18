@@ -102,6 +102,36 @@ form.sign-in-form .input-block .icon {
   left: 10px;
 }
 
+form.sign-in-form .input-block-footer {
+  width: 280px;
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form.sign-in-form .input-block-footer .forget_password {
+  color: #797979;
+  font-size: 0.9rem;
+}
+
+form.sign-in-form .input-block-footer .check-box-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form.sign-in-form .input-block-footer .check-box-area label {
+  margin-top: 1px;
+}
+
+form.sign-in-form .input-block-footer .check-box-area label {
+  font-size: 1rem;
+  color: #8fa7b3;
+  margin-left: 10px;
+}
+
 /* Access Button */
 form.sign-in-form button.access-button {
   margin-top: 64px;
@@ -126,20 +156,6 @@ form.sign-in-form button.access-button:hover {
   background: #36cf82;
 }
 
-form.sign-in-form .forget_passowrd-area {
-  width: 285px;
-  margin-top: 10px;
-
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-form.sign-in-form .forget_password {
-  color: #797979;
-  font-size: 0.9rem;
-}
-
 form.sign-in-form .register {
   font-size: 0.9rem;
   margin-top: 10px;
@@ -159,7 +175,7 @@ form.sign-in-form .register:hover {
     width: 58vw;
   }
 
-  form.sign-in-form .forget_passowrd-area {
+  form.sign-in-form .input-block-footer {
     width: 58vw;
   }
 
