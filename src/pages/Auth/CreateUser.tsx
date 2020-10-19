@@ -1,10 +1,12 @@
 import React, { FormEvent, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import { api } from '../../services/api';
 
 import '../../styles/pages/create-user.css';
 
 const CreateUser: React.FC = () => {
+  const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,8 +21,9 @@ const CreateUser: React.FC = () => {
     };
 
     const response = await api.post('/users', data);
-    if (response.status === 200) {
+    if (response.status === 201) {
       alert('Cadastro efetuado com sucesso!');
+      history.push('/signin');
     }
   }
 

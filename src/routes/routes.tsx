@@ -8,6 +8,8 @@ import { AuthRoutes } from './AuthRoutes';
 
 import Landing from '../pages/Landing';
 import SignIn from '../pages/Auth/SignIn';
+import ForgetPassword from '../pages/Auth/ForgetPassword';
+import RecoveryPassword from '../pages/Auth/RecoveryPassword';
 import CreateUser from '../pages/Auth/CreateUser';
 import OrphanagesMap from '../pages/OrphanagesMap';
 import Orphanage from '../pages/Orphanage';
@@ -51,6 +53,17 @@ const Routes: React.FC = () => {
           isSignedIn={signed}
           component={CreateUser}
         />
+        <AuthRoutes
+          exact
+          path="/forget_password"
+          isSignedIn={signed}
+          component={ForgetPassword}
+        />
+        <AuthRoutes
+          path="/forget_password/:token"
+          isSignedIn={signed}
+          component={RecoveryPassword}
+        />
         <Route path="/app" component={OrphanagesMap} />
 
         <PrivateRoutes
@@ -59,6 +72,10 @@ const Routes: React.FC = () => {
           component={CreateOrphanage}
         />
         <Route path="/orphanages/:id" component={Orphanage} />
+        <Route
+          path="*"
+          component={() => <h1 style={{ color: 'black' }}>ERROR404</h1>}
+        />
       </Switch>
     </BrowserRouter>
   );
