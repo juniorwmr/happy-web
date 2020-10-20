@@ -1,24 +1,29 @@
 import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 
+import { isAuthenticated } from '../services/auth';
+
 interface IRouteProps extends RouteProps {
-  isSignedIn: boolean;
   component: any;
 }
 
-export const AuthRoutes: React.FC<IRouteProps> = ({
+export const AuthRoute: React.FC<IRouteProps> = ({
   component: Component,
-  isSignedIn,
   ...rest
 }) => {
   return (
     <Route
       {...rest}
       render={(routeProps) =>
-        !isSignedIn ? (
+        !isAuthenticated() ? (
           <Component {...routeProps} />
         ) : (
-          <Redirect to="/orphanage/create" />
+          <Redirect
+            to={{
+              pathname: '/dashboard/orphanages',
+              state: { from: routeProps.location },
+            }}
+          />
         )
       }
     />

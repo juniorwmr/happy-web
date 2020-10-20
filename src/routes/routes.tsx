@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
 
-import { useAuth } from '../context/auth';
-import { PrivateRoutes } from './PrivateRoutes';
-import { AuthRoutes } from './AuthRoutes';
+import { PrivateRoute } from './PrivateRoute';
+import { AuthRoute } from './AuthRoute';
+import AuthVerifyComponent from './AuthVerifyComponent';
 
+// Public Components
 import Landing from '../pages/Landing';
 import SignIn from '../pages/Auth/SignIn';
 import ForgetPassword from '../pages/Auth/ForgetPassword';
@@ -13,65 +13,37 @@ import RecoveryPassword from '../pages/Auth/RecoveryPassword';
 import CreateUser from '../pages/Auth/CreateUser';
 import OrphanagesMap from '../pages/OrphanagesMap';
 import Orphanage from '../pages/Orphanage';
-import CreateOrphanage from '../pages/Dashboard/CreateOrphanage';
+import CreateOrphanage from '../pages/CreateOrphanage';
 
-interface IDecodeJWToken {
-  email: string;
-  exp: number;
-  iat: number;
-  id: number;
-  name: string;
-}
+// Private Components
+import Orphanages from '../pages/Dashboard/Orphanages';
+import PendentOrphanages from '../pages/Dashboard/PendentOrphanages';
+import AprooveOrphanage from '../pages/Dashboard/AprooveOrphanage';
+import EditOrphanage from '../pages/Dashboard/EditOrphanage';
 
 const Routes: React.FC = () => {
-  const { signed, setSigned } = useAuth();
-
-  useEffect(() => {
-    function verifyToken() {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        return false;
-      }
-      const { exp } = jwt.decode(token) as IDecodeJWToken;
-      if (Date.now() >= exp * 1000) {
-        localStorage.removeItem('token');
-        return false;
-      }
-      return true;
-    }
-    const verification = verifyToken();
-    setSigned(verification);
-  }, [setSigned]);
-
   return (
     <BrowserRouter>
+      <AuthVerifyComponent />
       <Switch>
         <Route exact path="/" component={Landing} />
-        <AuthRoutes path="/signin" isSignedIn={signed} component={SignIn} />
-        <AuthRoutes
-          path="/register"
-          isSignedIn={signed}
-          component={CreateUser}
-        />
-        <AuthRoutes
-          exact
-          path="/forget_password"
-          isSignedIn={signed}
-          component={ForgetPassword}
-        />
-        <AuthRoutes
+        <Route path="/app" component={OrphanagesMap} />
+        <Route path="/orphanages/:id" component={Orphanage} />
+        <Route path="/orphanage/create" component={CreateOrphanage} />
+        <AuthRoute path="/signin" component={SignIn} />
+        <AuthRoute path="/register" component={CreateUser} />
+        <AuthRoute exact path="/forget_password" component={ForgetPassword} />
+        <AuthRoute
           path="/forget_password/:token"
-          isSignedIn={signed}
           component={RecoveryPassword}
         />
-        <Route path="/app" component={OrphanagesMap} />
-
-        <PrivateRoutes
-          path="/orphanage/create"
-          isSignedIn={signed}
-          component={CreateOrphanage}
+        <PrivateRoute path="/dashboard/orphanages" component={Orphanages} />
+        <PrivateRoute
+          path="/dashboard/pendents"
+          component={PendentOrphanages}
         />
-        <Route path="/orphanages/:id" component={Orphanage} />
+        <PrivateRoute path="/dashboard/aproove" component={AprooveOrphanage} />
+        <PrivateRoute path="/dashboard/edit" component={EditOrphanage} />
         <Route
           path="*"
           component={() => <h1 style={{ color: 'black' }}>ERROR404</h1>}
