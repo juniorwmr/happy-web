@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Form, Fieldset, Title, Field, Input, EyeContainer } from './styles';
-import RestrictArea from '../../../components/RestrictArea';
+import Auth from '../../../components/Auth';
 import Button from '../../../components/Button';
 
 import UsersRepository from '../../../repositories/users';
@@ -26,7 +26,7 @@ const CreateUser: React.FC = () => {
   }
 
   return (
-    <RestrictArea pushTo="/signin">
+    <Auth pushTo="/signin">
       <Form onSubmit={(event) => handleSubmitRegisterUser(event)}>
         <Fieldset>
           <Title>Cadastrar usuário</Title>
@@ -89,7 +89,7 @@ const CreateUser: React.FC = () => {
           isActive={name && email && password ? true : false}
         />
       </Form>
-    </RestrictArea>
+    </Auth>
   );
 };
 

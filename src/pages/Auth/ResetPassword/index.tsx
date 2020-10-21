@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
-import RestrictArea from '../../../components/RestrictArea';
+import Auth from '../../../components/Auth';
 import Button from '../../../components/Button';
 
 import UsersRepository from '../../../repositories/users';
@@ -51,7 +51,7 @@ const ResetPassword: React.FC = () => {
   }, [history, params.token]);
 
   return (
-    <RestrictArea pushTo="/signin">
+    <Auth pushTo="/signin">
       <Form onSubmit={(event) => handleSubmitResetPassword(event)}>
         <Fieldset>
           <Title>Redefinição de senha</Title>
@@ -129,7 +129,7 @@ const ResetPassword: React.FC = () => {
           isActive={password.text && confirmPassword.text ? true : false}
         />
       </Form>
-    </RestrictArea>
+    </Auth>
   );
 };
 

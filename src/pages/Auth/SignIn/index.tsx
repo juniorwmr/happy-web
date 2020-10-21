@@ -16,7 +16,7 @@ import {
 import { login } from '../../../services/auth';
 import { useAuth } from '../../../context/auth';
 
-import RestrictArea from '../../../components/RestrictArea';
+import Auth from '../../../components/Auth';
 import Button from '../../../components/Button';
 
 import UsersRepository from '../../../repositories/users';
@@ -43,7 +43,7 @@ const SignIn: React.FC = () => {
   }
 
   return (
-    <RestrictArea pushTo="/">
+    <Auth pushTo="/">
       <Form onSubmit={handleSignInForm}>
         <Fieldset>
           <Title>Fazer login</Title>
@@ -92,7 +92,7 @@ const SignIn: React.FC = () => {
       <Register to="/register" className="register">
         Cadastre-se
       </Register>
-    </RestrictArea>
+    </Auth>
   );
 };
 

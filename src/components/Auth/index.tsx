@@ -15,12 +15,12 @@ import logo from '../../images/Logotipo.svg';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
-interface IRestrictAreaProps {
+interface IAuthProps {
   children: React.ReactNode;
   pushTo: string;
 }
 
-const RestrictArea: React.FC<IRestrictAreaProps> = ({ children, pushTo }) => {
+const Auth: React.FC<IAuthProps> = ({ children, pushTo }) => {
   const { push } = useHistory();
   return (
     <Container>
@@ -41,4 +41,4 @@ const RestrictArea: React.FC<IRestrictAreaProps> = ({ children, pushTo }) => {
   );
 };
 
-export default RestrictArea;
+export default Auth;

@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 
 import Button from '../../../components/Button';
-import RestrictArea from '../../../components/RestrictArea';
+import Auth from '../../../components/Auth';
 
 import UsersRepository from '../../../repositories/users';
 import { Form, Fieldset, Title, Field, Input } from './styles';
@@ -20,7 +20,7 @@ const ForgetPassword: React.FC = () => {
   }
 
   return (
-    <RestrictArea pushTo="/signin">
+    <Auth pushTo="/signin">
       <Form onSubmit={(event) => handleSubmitForgetPassword(event)}>
         <Fieldset>
           <Title>Esqueci minha senha</Title>
@@ -43,7 +43,7 @@ const ForgetPassword: React.FC = () => {
         </Fieldset>
         <Button name="Enviar" isActive={email ? true : false} />
       </Form>
-    </RestrictArea>
+    </Auth>
   );
 };
 
