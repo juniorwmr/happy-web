@@ -29,18 +29,19 @@ interface IOrphanageProps {
 }
 
 export default function ApproveOrphanage() {
-  const { location, push } = useHistory();
-  const { orphanage } = location.state as IOrphanageProps;
+  const history = useHistory();
+  const { orphanage } = history.location.state as IOrphanageProps;
   const [buttonAction, setButtonAction] = useState<boolean>();
 
   async function EditOrphanage(orphanage: FormData) {
     if (!buttonAction) {
       await api.delete(`/orphanages/${orphanage.get('id')}`);
-      push('/dashboard/pendents');
+
+      history.push('/dashboard/pendents');
     } else {
       orphanage.append('check', String(true));
       await api.put(`/orphanages`, orphanage);
-      push('/dashboard/orphanages');
+      history.push('/dashboard/orphanages');
     }
   }
 

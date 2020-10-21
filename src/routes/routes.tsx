@@ -21,6 +21,9 @@ import PendentOrphanages from '../pages/Dashboard/PendentOrphanages';
 import AprooveOrphanage from '../pages/Dashboard/AprooveOrphanage';
 import EditOrphanage from '../pages/Dashboard/EditOrphanage';
 
+import DeleteOrphanageConfirmed from '../pages/Dashboard/EditOrphanage/DeleteOrphanageConfirmed';
+import CreateOrphanagePendent from '../pages/App/CreateOrphanage/CreateOrphanagePendent';
+
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
@@ -44,6 +47,16 @@ const Routes: React.FC = () => {
         />
         <PrivateRoute path="/dashboard/aproove" component={AprooveOrphanage} />
         <PrivateRoute path="/dashboard/edit" component={EditOrphanage} />
+        <PrivateRoute
+          exact
+          path="/orphanage/deleted"
+          component={DeleteOrphanageConfirmed}
+        />
+        <PrivateRoute
+          exact
+          path="/orphanage/created"
+          component={CreateOrphanagePendent}
+        />
         <Route
           path="*"
           component={() => <h1 style={{ color: 'black' }}>ERROR404</h1>}

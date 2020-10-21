@@ -18,8 +18,8 @@ interface IOrphanage {
   open_on_weekends: boolean;
   images: [
     {
-      id: number;
-      url: string;
+      id?: number;
+      url?: string;
     }
   ];
 }
@@ -29,14 +29,13 @@ interface IOrphanageProps {
 }
 
 export default function EditOrphanage() {
-  const { location, push } = useHistory();
-  const { orphanage } = location.state as IOrphanageProps;
-
+  const history = useHistory();
+  const { orphanage } = history.location.state as IOrphanageProps;
   async function EditOrphanage(orphanage: FormData) {
     orphanage.append('check', String(true));
     const { status } = await api.put(`/orphanages`, orphanage);
     if (status === 204) {
-      push('/dashboard/orphanages');
+      history.push('/dashboard/orphanages');
     }
   }
 

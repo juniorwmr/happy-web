@@ -9,6 +9,7 @@ import { mapIcon } from '../../../utils/mapIcon';
 import { api } from '../../../services/api';
 
 import { ButtonIcon, MapContainer, MapItem, MapFooter, Icons } from '../styles';
+import DeleteOrphanageConfirmed from '../EditOrphanage/DeleteOrphanageConfirmed';
 
 interface IOrphanages {
   id: number;
@@ -29,9 +30,13 @@ interface IOrphanages {
 
 const Orphanages: React.FC = () => {
   const [orphanages, setOrphanages] = useState<IOrphanages[]>([]);
+  const [displayFeedback, setDisplayFeedback] = useState(false);
 
   async function handleClickToDelete(id: number) {
-    await api.delete(`/orphanages/${id}`);
+    const response = await api.delete(`/orphanages/${id}`);
+    if (response.status === 200) {
+      setDisplayFeedback(true);
+    }
     const new_orphanages = orphanages.filter((orphanage: IOrphanages) => {
       return orphanage.id !== id ? orphanage : null;
     });
@@ -46,7 +51,9 @@ const Orphanages: React.FC = () => {
     getAllOrphanages();
   }, []);
 
-  return (
+  return displayFeedback ? (
+    <DeleteOrphanageConfirmed />
+  ) : (
     <Dashboard
       title="Orfanatos cadastrados"
       orphanagesLength={orphanages?.length}

@@ -21,6 +21,7 @@ import { FiPlus, FiX } from 'react-icons/fi';
 interface IOrphanagesImages {
   id?: number;
   url?: string;
+  link?: string;
 }
 
 interface IOrphanage {
@@ -64,6 +65,7 @@ const OrphanageForm: React.FC<IOrphanageProps> = ({
   );
   const [removeImage, setRemoveImage] = useState<IOrphanagesImages[]>([]);
 
+  console.log(orphanage);
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
     const { files } = event.target;
     if (!files || files.length === 0) {
@@ -78,11 +80,12 @@ const OrphanageForm: React.FC<IOrphanageProps> = ({
     const selectedImagesPreview = selectedImages.map((image, index) => {
       const id = index;
       const url = URL.createObjectURL(image);
-      return { id, url };
+      const link = image.name;
+      return { id, url, link };
     });
 
     selectedImagesPreview.forEach((selectedImage) => {
-      if (!previewImages[0].url) {
+      if (!previewImages[0]) {
         setPreviewImages([selectedImage]);
       } else {
         setPreviewImages((oldPreviews) => [...oldPreviews, selectedImage]);
@@ -178,26 +181,31 @@ const OrphanageForm: React.FC<IOrphanageProps> = ({
             <InputField>
               <label htmlFor="images">Fotos</label>
               <ImageContainer>
-                {previewImages[0].url &&
+                {previewImages &&
                   previewImages.map((image, index) => (
-                    <div>
-                      <img key={index} src={image.url} alt={name} />
+                    <div key={index}>
+                      <img src={image.url} alt={name} />
                       <RemoveButton
                         onClick={() => {
                           setRemoveImage((oldImages) => [...oldImages, image]);
-                          if (previewImages.length === 1) {
-                            previewImages[0].url = '';
-                          } else {
-                            const newPreviewIamges = previewImages.filter(
-                              (previewImage) => {
-                                if (previewImage.url !== image.url) {
-                                  return previewImage;
-                                }
-                                return null;
+
+                          const newPreviewIamges = previewImages.filter(
+                            (previewImage) => {
+                              if (previewImage.url !== image.url) {
+                                return previewImage;
                               }
-                            );
-                            setPreviewImages(newPreviewIamges);
-                          }
+                              return null;
+                            }
+                          );
+                          setPreviewImages(newPreviewIamges);
+
+                          const filteredImages = images.filter((img) => {
+                            return img.name !== image.link;
+                          });
+                          setImages(filteredImages);
+
+                          console.log(images);
+                          console.log(previewImages);
                         }}
                       >
                         <FiX size={20} color="#FF669D" />
