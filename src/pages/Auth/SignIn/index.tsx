@@ -13,12 +13,13 @@ import {
   Register,
 } from './styles';
 
-import { api } from '../../../services/api';
 import { login } from '../../../services/auth';
 import { useAuth } from '../../../context/auth';
 
 import RestrictArea from '../../../components/RestrictArea';
 import Button from '../../../components/Button';
+
+import UsersRepository from '../../../repositories/users';
 
 const SignIn: React.FC = () => {
   const { setSigned } = useAuth();
@@ -30,19 +31,14 @@ const SignIn: React.FC = () => {
   async function handleSignInForm(event: FormEvent) {
     event.preventDefault();
 
-    if (email && password) {
-      const response = await api.post('/auth', {
-        email,
-        password,
-      });
-      if (response.data.auth) {
-        alert('Login efetuado com sucesso!');
-        setSigned(true);
-        if (checked) {
-          login(response.data.token);
-        }
-        history.push('/dashboard/orphanages');
+    const response = await UsersRepository.Authenticate({ email, password });
+    if (response?.data.auth) {
+      alert('Login efetuado com sucesso!');
+      setSigned(true);
+      if (checked) {
+        login(response?.data.token);
       }
+      history.push('/dashboard/orphanages');
     }
   }
 

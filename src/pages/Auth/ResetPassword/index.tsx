@@ -4,11 +4,11 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 import RestrictArea from '../../../components/RestrictArea';
 import Button from '../../../components/Button';
+
+import UsersRepository from '../../../repositories/users';
 import { Form, Fieldset, Title, Field, Input, EyeContainer } from './styles';
 
-import { api } from '../../../services/api';
-
-const RecoveryPassword: React.FC = () => {
+const ResetPassword: React.FC = () => {
   const history = useHistory();
   const params = useParams() as { token: string };
   const [password, setPassword] = useState({
@@ -19,35 +19,32 @@ const RecoveryPassword: React.FC = () => {
     text: '',
     isEyeActive: false,
   });
-  const [user, setUser] = useState({} as { email: string });
+  const [email, setEmail] = useState('');
 
-  async function handleSubmitRecoveryPassword(event: FormEvent) {
+  async function handleSubmitResetPassword(event: FormEvent) {
     event.preventDefault();
+    if (password.text === confirmPassword.text) {
+      const response = await UsersRepository.ResetPassword(params.token, {
+        email,
+        new_password: password.text,
+      });
 
-    const response = await api.post(`/forget_password/${params.token}`, {
-      email: user.email,
-      password,
-    });
-
-    if (response.status === 202) {
-      alert('Senha alterada com sucesso!');
-      history.push('/signin');
+      if (response?.status === 202) {
+        alert('Senha alterada com sucesso!');
+        history.push('/signin');
+      }
     }
   }
 
   useEffect(() => {
     async function verifyTokenProvided() {
-      try {
-        const response = await api.get(
-          `/forget_password/verify/${params.token}`
-        );
-        if (response.status === 200) {
-          setUser(response.data);
-        }
-      } catch (err) {
-        if (err.request.response) {
-          history.push('/');
-        }
+      const response = await UsersRepository.VerifyForgetPasswordToken(
+        params.token
+      );
+      if (response?.data.email) {
+        setEmail(response?.data.email);
+      } else {
+        history.push('/');
       }
     }
     verifyTokenProvided();
@@ -55,7 +52,7 @@ const RecoveryPassword: React.FC = () => {
 
   return (
     <RestrictArea pushTo="/signin">
-      <Form onSubmit={(event) => handleSubmitRecoveryPassword(event)}>
+      <Form onSubmit={(event) => handleSubmitResetPassword(event)}>
         <Fieldset>
           <Title>Redefinição de senha</Title>
           <p>Escolha uma nova senha para você acessar o dashboard do Happy.</p>
@@ -136,4 +133,4 @@ const RecoveryPassword: React.FC = () => {
   );
 };
 
-export default RecoveryPassword;
+export default ResetPassword;

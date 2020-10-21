@@ -5,7 +5,7 @@ import { Form, Fieldset, Title, Field, Input, EyeContainer } from './styles';
 import RestrictArea from '../../../components/RestrictArea';
 import Button from '../../../components/Button';
 
-import { api } from '../../../services/api';
+import UsersRepository from '../../../repositories/users';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const CreateUser: React.FC = () => {
@@ -18,12 +18,8 @@ const CreateUser: React.FC = () => {
   async function handleSubmitRegisterUser(event: FormEvent) {
     event.preventDefault();
 
-    const response = await api.post('/users', {
-      name,
-      email,
-      password,
-    });
-    if (response.status === 201) {
+    const response = await UsersRepository.create({ name, email, password });
+    if (response?.status === 201) {
       alert('Cadastro efetuado com sucesso!');
       history.push('/signin');
     }
