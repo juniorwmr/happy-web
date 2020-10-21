@@ -15,6 +15,7 @@ export const ButtonStyle = styled.button<IButtonProps>`
   color: #ffffff;
   font-weight: 800;
   opacity: ${(props) => (props.isActive ? 1.0 : 0.7)};
+  outline: none;
 
   display: flex;
   justify-content: center;

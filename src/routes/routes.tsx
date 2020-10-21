@@ -3,17 +3,21 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { PrivateRoute } from './PrivateRoute';
 import { AuthRoute } from './AuthRoute';
+
+// Component to check the Authentication
 import AuthVerifyComponent from './AuthVerifyComponent';
 
-// Public Components
-import Landing from '../pages/Landing';
+// App Public Components
+import Landing from '../pages/App/Landing';
+import CreateOrphanage from '../pages/App/CreateOrphanage';
+import Orphanage from '../pages/App/Orphanage';
+import OrphanagesMap from '../pages/App/OrphanagesMap';
+
+// Authentication Components
 import SignIn from '../pages/Auth/SignIn';
 import ForgetPassword from '../pages/Auth/ForgetPassword';
-import RecoveryPassword from '../pages/Auth/RecoveryPassword';
+import ResetPassword from '../pages/Auth/ResetPassword';
 import CreateUser from '../pages/Auth/CreateUser';
-import OrphanagesMap from '../pages/OrphanagesMap';
-import Orphanage from '../pages/Orphanage';
-import CreateOrphanage from '../pages/App/CreateOrphanage';
 
 // Private Components
 import Orphanages from '../pages/Dashboard/Orphanages';
@@ -36,10 +40,7 @@ const Routes: React.FC = () => {
         <AuthRoute path="/signin" component={SignIn} />
         <AuthRoute path="/register" component={CreateUser} />
         <AuthRoute exact path="/forget_password" component={ForgetPassword} />
-        <AuthRoute
-          path="/forget_password/:token"
-          component={RecoveryPassword}
-        />
+        <AuthRoute path="/forget_password/:token" component={ResetPassword} />
         <PrivateRoute path="/dashboard/orphanages" component={Orphanages} />
         <PrivateRoute
           path="/dashboard/pendents"

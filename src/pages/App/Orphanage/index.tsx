@@ -5,10 +5,19 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { FiClock, FiInfo } from 'react-icons/fi';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 
-import '../styles/pages/orphanage.css';
-import Sidebar from '../components/Sidebar';
-import { mapIcon } from '../utils/mapIcon';
-import { api } from '../services/api';
+import {
+  Container,
+  Main,
+  OrphanageDetails,
+  OrphanageDetailsContent,
+  MapContainer,
+  Images,
+  OpenDetails,
+  ContactButton,
+} from './styles';
+import Sidebar from '../../../components/Sidebar';
+import { mapIcon } from '../../../utils/mapIcon';
+import { api } from '../../../services/api';
 
 interface IOrphanages {
   id: number;
@@ -49,17 +58,16 @@ export default function Orphanage() {
   }
 
   return (
-    <div id="page-orphanage">
+    <Container>
       <Sidebar />
-
-      <main>
-        <div className="orphanage-details">
+      <Main>
+        <OrphanageDetails>
           <img
             src={orphanage?.images[activeImageIndex].url}
             alt={orphanage?.name}
           />
 
-          <div className="images">
+          <Images>
             {orphanage.images.map((image, index) => (
               <button
                 type="button"
@@ -72,13 +80,13 @@ export default function Orphanage() {
                 <img src={image.url} alt={orphanage.name} />
               </button>
             ))}
-          </div>
+          </Images>
 
-          <div className="orphanage-details-content">
+          <OrphanageDetailsContent>
             <h1>{orphanage.name}</h1>
             <p>{orphanage.about}</p>
 
-            <div className="map-container">
+            <MapContainer>
               <Map
                 center={[orphanage.latitude, orphanage.longitude]}
                 zoom={16}
@@ -108,14 +116,14 @@ export default function Orphanage() {
                   Ver rotas no Google Maps
                 </a>
               </footer>
-            </div>
+            </MapContainer>
 
             <hr />
 
             <h2>Instruções para visita</h2>
             <p>{orphanage.instructions}</p>
 
-            <div className="open-details">
+            <OpenDetails>
               <div className="hour">
                 <FiClock size={32} color="#15B6D6" />
                 Segunda à Sexta <br />
@@ -134,15 +142,15 @@ export default function Orphanage() {
                   fim de semana
                 </div>
               )}
-            </div>
+            </OpenDetails>
 
-            <button type="button" className="contact-button">
+            <ContactButton>
               <FaWhatsapp size={20} color="#FFF" />
               Entrar em contato
-            </button>
-          </div>
-        </div>
-      </main>
-    </div>
+            </ContactButton>
+          </OrphanageDetailsContent>
+        </OrphanageDetails>
+      </Main>
+    </Container>
   );
 }
