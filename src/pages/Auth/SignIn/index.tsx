@@ -14,7 +14,7 @@ import {
 } from './styles';
 
 import { api } from '../../../services/api';
-import { login, logout } from '../../../services/auth';
+import { login } from '../../../services/auth';
 import { useAuth } from '../../../context/auth';
 
 import RestrictArea from '../../../components/RestrictArea';
@@ -36,8 +36,6 @@ const SignIn: React.FC = () => {
         password,
       });
       if (response.data.auth) {
-        console.log(response.data.expiresIn);
-        setInterval(logout(), response.data.expiresIn);
         alert('Login efetuado com sucesso!');
         setSigned(true);
         if (checked) {
@@ -49,7 +47,7 @@ const SignIn: React.FC = () => {
   }
 
   return (
-    <RestrictArea>
+    <RestrictArea pushTo="/">
       <Form onSubmit={handleSignInForm}>
         <Fieldset>
           <Title>Fazer login</Title>

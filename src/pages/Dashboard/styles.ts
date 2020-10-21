@@ -70,3 +70,18 @@ export const Icons = styled.div`
     margin-left: 8px;
   }
 `;
+
+export const ImgContainer = styled.div`
+  margin-top: 64px;
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    margin-top: 15px;
+    color: #8fa7b2;
+  }
+`;

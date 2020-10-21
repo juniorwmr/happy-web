@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FiCheck, FiXCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
-import Orphanage from '../../../components/Orphanage';
+import Orphanage from '../../../components/OrphanageForm';
 import { api } from '../../../services/api';
 
 import { ContainerButtons, DeleteButton, ConfirmButton } from './styles';

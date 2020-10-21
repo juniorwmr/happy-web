@@ -24,7 +24,7 @@ const ForgetPassword: React.FC = () => {
   }
 
   return (
-    <RestrictArea>
+    <RestrictArea pushTo="/signin">
       <Form onSubmit={(event) => handleSubmitForgetPassword(event)}>
         <Fieldset>
           <Title>Esqueci minha senha</Title>

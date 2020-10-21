@@ -54,7 +54,7 @@ const RecoveryPassword: React.FC = () => {
   }, [history, params.token]);
 
   return (
-    <RestrictArea>
+    <RestrictArea pushTo="/signin">
       <Form onSubmit={(event) => handleSubmitRecoveryPassword(event)}>
         <Fieldset>
           <Title>Redefinição de senha</Title>

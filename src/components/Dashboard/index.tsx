@@ -29,11 +29,13 @@ const Dashboard: React.FC<IDashboardProps> = ({
         <Main>
           <Title>
             <legend>{title}</legend>
-            <p>
-              {orphanagesLength && orphanagesLength > 1
-                ? `${orphanagesLength} orfanatos`
-                : `${orphanagesLength} orfanato`}
-            </p>
+            {orphanagesLength ? (
+              <p>
+                {orphanagesLength && orphanagesLength > 1
+                  ? `${orphanagesLength} orfanatos`
+                  : `${orphanagesLength} orfanato`}
+              </p>
+            ) : null}
           </Title>
           {children}
         </Main>

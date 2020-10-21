@@ -15,8 +15,13 @@ import logo from '../../images/Logotipo.svg';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
-const RestrictArea: React.FC = ({ children }) => {
-  const { goBack } = useHistory();
+interface IRestrictAreaProps {
+  children: React.ReactNode;
+  pushTo: string;
+}
+
+const RestrictArea: React.FC<IRestrictAreaProps> = ({ children, pushTo }) => {
+  const { push } = useHistory();
   return (
     <Container>
       <SideBar>
@@ -27,7 +32,7 @@ const RestrictArea: React.FC = ({ children }) => {
         </Location>
       </SideBar>
       <Main>
-        <Button backgroundColor="#EBF2F5" onClick={goBack}>
+        <Button backgroundColor="#EBF2F5" onClick={() => push(pushTo)}>
           <FiArrowLeft size={24} color="#15C3D6" />
         </Button>
         <MainContainer>{children}</MainContainer>

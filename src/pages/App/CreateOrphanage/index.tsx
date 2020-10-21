@@ -24,24 +24,30 @@ interface IOrphanage {
   ];
 }
 
-interface IOrphanageProps {
-  orphanage: IOrphanage;
-}
+export default function CreateOrphanage() {
+  const { push } = useHistory();
+  const orphanage = {
+    id: 0,
+    name: '',
+    latitude: 0,
+    longitude: 0,
+    about: '',
+    instructions: '',
+    opening_hours: '',
+    open_on_weekends: true,
+    images: [{}],
+  };
 
-export default function EditOrphanage() {
-  const { location, push } = useHistory();
-  const { orphanage } = location.state as IOrphanageProps;
-
-  async function EditOrphanage(orphanage: FormData) {
-    orphanage.append('check', String(true));
-    const { status } = await api.put(`/orphanages`, orphanage);
-    if (status === 204) {
+  async function createOrphanage(orphanage: FormData) {
+    const { status } = await api.post(`/orphanages`, orphanage);
+    if (status === 201) {
+      alert('Orfanato criado com sucesso!');
       push('/dashboard/orphanages');
     }
   }
 
   return (
-    <Orphanage orphanage={orphanage} action={EditOrphanage}>
+    <Orphanage orphanage={orphanage} action={createOrphanage}>
       <ContainerButtons>
         <ConfirmButton type="submit">
           <FiCheck style={{ marginRight: 10 }} size={20} color="#FFF" />

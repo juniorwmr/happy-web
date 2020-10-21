@@ -8,7 +8,15 @@ import { mapIcon } from '../../../utils/mapIcon';
 
 import { api } from '../../../services/api';
 
-import { ButtonIcon, MapContainer, MapItem, MapFooter, Icons } from '../styles';
+import {
+  ButtonIcon,
+  MapContainer,
+  MapItem,
+  MapFooter,
+  Icons,
+  ImgContainer,
+} from '../styles';
+import LogoBW from '../../../images/logo-bw.svg';
 
 interface IOrphanages {
   id: number;
@@ -45,43 +53,53 @@ const PendentOrphanages: React.FC = () => {
       isOrphanagesPage={false}
       isPendentPage={true}
     >
-      <MapContainer>
-        {orphanages.map((orphanage) => (
-          <MapItem key={orphanage.id}>
-            <Map
-              className="map"
-              center={[orphanage.latitude, orphanage.longitude]}
-              zoom={16}
-              style={{ width: '100%', height: '100%' }}
-              dragging={false}
-              touchZoom={false}
-              zoomControl={false}
-              scrollWheelZoom={false}
-              doubleClickZoom={false}
-            >
-              <TileLayer
-                url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-              />
-              <Marker
-                interactive={false}
-                icon={mapIcon}
-                position={[orphanage.latitude, orphanage.longitude]}
-              />
-            </Map>
-            <MapFooter>
-              <h2>{orphanage.name}</h2>
-              <Icons>
-                <ButtonIcon
-                  as={Link}
-                  to={{ pathname: '/dashboard/aproove', state: { orphanage } }}
-                >
-                  <FiArrowRight size={20} color="#15C3D6" />
-                </ButtonIcon>
-              </Icons>
-            </MapFooter>
-          </MapItem>
-        ))}
-      </MapContainer>
+      {orphanages.length <= 0 ? (
+        <ImgContainer>
+          <img src={LogoBW} alt="Logo" />
+          <p>Nenhum no momento</p>
+        </ImgContainer>
+      ) : (
+        <MapContainer>
+          {orphanages.map((orphanage) => (
+            <MapItem key={orphanage.id}>
+              <Map
+                className="map"
+                center={[orphanage.latitude, orphanage.longitude]}
+                zoom={16}
+                style={{ width: '100%', height: '100%' }}
+                dragging={false}
+                touchZoom={false}
+                zoomControl={false}
+                scrollWheelZoom={false}
+                doubleClickZoom={false}
+              >
+                <TileLayer
+                  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                />
+                <Marker
+                  interactive={false}
+                  icon={mapIcon}
+                  position={[orphanage.latitude, orphanage.longitude]}
+                />
+              </Map>
+              <MapFooter>
+                <h2>{orphanage.name}</h2>
+                <Icons>
+                  <ButtonIcon
+                    as={Link}
+                    to={{
+                      pathname: '/dashboard/aproove',
+                      state: { orphanage },
+                    }}
+                  >
+                    <FiArrowRight size={20} color="#15C3D6" />
+                  </ButtonIcon>
+                </Icons>
+              </MapFooter>
+            </MapItem>
+          ))}
+        </MapContainer>
+      )}
     </Dashboard>
   );
 };

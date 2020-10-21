@@ -19,8 +19,8 @@ import {
 import { FiPlus, FiX } from 'react-icons/fi';
 
 interface IOrphanagesImages {
-  id: number;
-  url: string;
+  id?: number;
+  url?: string;
 }
 
 interface IOrphanage {
@@ -41,7 +41,7 @@ interface IOrphanageProps {
   children: ReactNode;
 }
 
-const Orphanage: React.FC<IOrphanageProps> = ({
+const OrphanageForm: React.FC<IOrphanageProps> = ({
   orphanage,
   action,
   children,
@@ -82,7 +82,11 @@ const Orphanage: React.FC<IOrphanageProps> = ({
     });
 
     selectedImagesPreview.forEach((selectedImage) => {
-      setPreviewImages((oldPreviews) => [...oldPreviews, selectedImage]);
+      if (!previewImages[0].url) {
+        setPreviewImages([selectedImage]);
+      } else {
+        setPreviewImages((oldPreviews) => [...oldPreviews, selectedImage]);
+      }
     });
   }
 
@@ -94,7 +98,7 @@ const Orphanage: React.FC<IOrphanageProps> = ({
     });
   }
 
-  function onSubmitEditForm(event: FormEvent) {
+  function onSubmitForm(event: FormEvent) {
     event.preventDefault();
     const { latitude, longitude } = position;
 
@@ -122,11 +126,15 @@ const Orphanage: React.FC<IOrphanageProps> = ({
     <Container>
       <Sidebar />
       <Main>
-        <Form onSubmit={(event: FormEvent) => onSubmitEditForm(event)}>
+        <Form onSubmit={(event: FormEvent) => onSubmitForm(event)}>
           <Fieldset>
             <legend>Dados</legend>
             <Map
-              center={[position.latitude, position.longitude]}
+              center={
+                position.latitude !== 0
+                  ? [position.latitude, position.longitude]
+                  : [-9.9470184, -67.8157173]
+              }
               style={{ width: '100%', height: 280 }}
               zoom={15}
               onClick={handleMapClick}
@@ -138,7 +146,11 @@ const Orphanage: React.FC<IOrphanageProps> = ({
               <Marker
                 interactive={false}
                 icon={mapIcon}
-                position={[position.latitude, position.longitude]}
+                position={
+                  position.latitude !== 0
+                    ? [position.latitude, position.longitude]
+                    : [0, 0]
+                }
               />
             </Map>
 
@@ -166,27 +178,32 @@ const Orphanage: React.FC<IOrphanageProps> = ({
             <InputField>
               <label htmlFor="images">Fotos</label>
               <ImageContainer>
-                {previewImages?.map((image, index) => (
-                  <div>
-                    <img key={index} src={image.url} alt={name} />
-                    <RemoveButton
-                      onClick={() => {
-                        setRemoveImage((oldImages) => [...oldImages, image]);
-                        const newPreviewIamges = previewImages.filter(
-                          (previewImage) => {
-                            if (previewImage.url !== image.url) {
-                              return previewImage;
-                            }
-                            return null;
+                {previewImages[0].url &&
+                  previewImages.map((image, index) => (
+                    <div>
+                      <img key={index} src={image.url} alt={name} />
+                      <RemoveButton
+                        onClick={() => {
+                          setRemoveImage((oldImages) => [...oldImages, image]);
+                          if (previewImages.length === 1) {
+                            previewImages[0].url = '';
+                          } else {
+                            const newPreviewIamges = previewImages.filter(
+                              (previewImage) => {
+                                if (previewImage.url !== image.url) {
+                                  return previewImage;
+                                }
+                                return null;
+                              }
+                            );
+                            setPreviewImages(newPreviewIamges);
                           }
-                        );
-                        setPreviewImages(newPreviewIamges);
-                      }}
-                    >
-                      <FiX size={20} color="#FF669D" />
-                    </RemoveButton>
-                  </div>
-                ))}
+                        }}
+                      >
+                        <FiX size={20} color="#FF669D" />
+                      </RemoveButton>
+                    </div>
+                  ))}
 
                 <label htmlFor="image[]">
                   <FiPlus size={24} color="#15b6d6" />
@@ -253,4 +270,4 @@ const Orphanage: React.FC<IOrphanageProps> = ({
   );
 };
 
-export default Orphanage;
+export default OrphanageForm;

@@ -13,7 +13,7 @@ import RecoveryPassword from '../pages/Auth/RecoveryPassword';
 import CreateUser from '../pages/Auth/CreateUser';
 import OrphanagesMap from '../pages/OrphanagesMap';
 import Orphanage from '../pages/Orphanage';
-import CreateOrphanage from '../pages/CreateOrphanage';
+import CreateOrphanage from '../pages/App/CreateOrphanage';
 
 // Private Components
 import Orphanages from '../pages/Dashboard/Orphanages';

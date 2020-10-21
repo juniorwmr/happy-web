@@ -30,7 +30,7 @@ const CreateUser: React.FC = () => {
   }
 
   return (
-    <RestrictArea>
+    <RestrictArea pushTo="/signin">
       <Form onSubmit={(event) => handleSubmitRegisterUser(event)}>
         <Fieldset>
           <Title>Cadastrar usuário</Title>

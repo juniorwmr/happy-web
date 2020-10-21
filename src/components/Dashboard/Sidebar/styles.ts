@@ -54,3 +54,28 @@ export const Footer = styled.footer`
     background: #17d6eb;
   }
 `;
+
+export const NotificationContainer = styled.div`
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+interface NotificationProps {
+  state: boolean;
+}
+
+export const Notification = styled.div<NotificationProps>`
+  display: ${(props) => (props.state ? 'block' : 'none')};
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  right: 0;
+  top: 0;
+  margin: 1px 1px;
+
+  border-radius: 4px;
+  background-color: #ffd666;
+`;
