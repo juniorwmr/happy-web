@@ -1,10 +1,8 @@
 import { api } from './../services/api';
-// routes.get('/users/forget_password/verify/:token');
-// routes.post('/users/forget_password/:token', UsersController.RecoveryPassword);
 
 export const URL_USERS = `/users`;
 
-interface IUser {
+export interface IUser {
   name: string;
   email: string;
   password: string;

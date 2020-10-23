@@ -3,26 +3,11 @@ import { FiCheck, FiXCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
 import Orphanage from '../../../components/OrphanageForm';
-import { api } from '../../../services/api';
+import OrphanagesRepository, {
+  IOrphanage,
+} from '../../../repositories/orphanages';
 
 import { ContainerButtons, DeleteButton, ConfirmButton } from './styles';
-
-interface IOrphanage {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  about: string;
-  instructions: string;
-  opening_hours: string;
-  open_on_weekends: boolean;
-  images: [
-    {
-      id: number;
-      url: string;
-    }
-  ];
-}
 
 interface IOrphanageProps {
   orphanage: IOrphanage;
@@ -35,12 +20,11 @@ export default function ApproveOrphanage() {
 
   async function EditOrphanage(orphanage: FormData) {
     if (!buttonAction) {
-      await api.delete(`/orphanages/${orphanage.get('id')}`);
-
+      await OrphanagesRepository.delete(orphanage.get('id') as string);
       history.push('/dashboard/pendents');
     } else {
-      orphanage.append('check', String(true));
-      await api.put(`/orphanages`, orphanage);
+      orphanage.append('check', true as any);
+      await OrphanagesRepository.update(orphanage);
       history.push('/dashboard/orphanages');
     }
   }

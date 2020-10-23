@@ -7,33 +7,17 @@ import { Container, Aside, Header, CreateButton } from './styles';
 
 import mapMarkerImg from '../../../images/map-marker.svg';
 import { mapIcon } from '../../../utils/mapIcon';
-
-import { api } from '../../../services/api';
-
-interface IOrphanages {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  about: string;
-  instructions: string;
-  opening_hours: string;
-  open_on_weekends: boolean;
-  images: [
-    {
-      id: number;
-      url: string;
-    }
-  ];
-}
+import OrphanagesRepository, {
+  IOrphanage,
+} from '../../../repositories/orphanages';
 
 const OrphanagesMap: React.FC = () => {
-  const [orphanages, setOrphanages] = useState<IOrphanages[]>([]);
+  const [orphanages, setOrphanages] = useState<IOrphanage[] | undefined>([]);
 
   useEffect(() => {
     const getOrphanages = async () => {
-      const { data } = await api.get('/orphanages');
-      setOrphanages(data);
+      const response = await OrphanagesRepository.index();
+      setOrphanages(response?.data);
     };
     getOrphanages();
   }, []);

@@ -17,24 +17,9 @@ import {
 } from './styles';
 import Sidebar from '../../../components/Sidebar';
 import { mapIcon } from '../../../utils/mapIcon';
-import { api } from '../../../services/api';
-
-interface IOrphanages {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  about: string;
-  instructions: string;
-  opening_hours: string;
-  open_on_weekends: boolean;
-  images: [
-    {
-      id: number;
-      url: string;
-    }
-  ];
-}
+import OrphanagesRepository, {
+  IOrphanage,
+} from '../../../repositories/orphanages';
 
 interface IParams {
   id: string;
@@ -42,13 +27,13 @@ interface IParams {
 
 export default function Orphanage() {
   const { id } = useParams<IParams>();
-  const [orphanage, setOrphanage] = useState<IOrphanages>();
+  const [orphanage, setOrphanage] = useState<IOrphanage>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     const getOrphanages = async () => {
-      const { data } = await api.get(`/orphanages/${id}`);
-      setOrphanage(data);
+      const response = await OrphanagesRepository.show(id);
+      setOrphanage(response?.data);
     };
     getOrphanages();
   }, [id]);

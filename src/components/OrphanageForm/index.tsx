@@ -17,24 +17,7 @@ import {
 } from './styles';
 
 import { FiPlus, FiX } from 'react-icons/fi';
-
-interface IOrphanagesImages {
-  id?: number;
-  url?: string;
-  link?: string;
-}
-
-interface IOrphanage {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  about: string;
-  instructions: string;
-  opening_hours: string;
-  open_on_weekends: boolean;
-  images: IOrphanagesImages[];
-}
+import { IOrphanage, IOrphanageImages } from '../../repositories/orphanages';
 
 interface IOrphanageProps {
   orphanage: IOrphanage;
@@ -60,12 +43,11 @@ const OrphanageForm: React.FC<IOrphanageProps> = ({
     orphanage.open_on_weekends
   );
   const [images, setImages] = useState<File[]>([]);
-  const [previewImages, setPreviewImages] = useState<IOrphanagesImages[]>(
+  const [previewImages, setPreviewImages] = useState<IOrphanageImages[]>(
     orphanage.images
   );
-  const [removeImage, setRemoveImage] = useState<IOrphanagesImages[]>([]);
+  const [removeImage, setRemoveImage] = useState<IOrphanageImages[]>([]);
 
-  console.log(orphanage);
   function handleSelectImages(event: ChangeEvent<HTMLInputElement>) {
     const { files } = event.target;
     if (!files || files.length === 0) {
@@ -107,19 +89,19 @@ const OrphanageForm: React.FC<IOrphanageProps> = ({
 
     const data = new FormData();
 
-    data.append('id', String(id));
+    data.append('id', id as any);
     data.append('name', name);
-    data.append('latitude', String(latitude));
-    data.append('longitude', String(longitude));
+    data.append('latitude', latitude as any);
+    data.append('longitude', longitude as any);
     data.append('about', about);
     data.append('instructions', instructions);
     data.append('opening_hours', openingHours);
-    data.append('open_on_weekends', String(openOnWeekends));
+    data.append('open_on_weekends', openOnWeekends as any);
     images.forEach((image) => {
       data.append('images', image);
     });
     removeImage.forEach((image) => {
-      data.append('id_images_remove', String(image.id));
+      data.append('id_images_remove', image.id as any);
     });
 
     action(data);

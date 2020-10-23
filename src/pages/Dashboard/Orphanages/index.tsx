@@ -6,38 +6,22 @@ import { FiEdit3, FiTrash } from 'react-icons/fi';
 import Dashboard from '../../../components/Dashboard';
 import { mapIcon } from '../../../utils/mapIcon';
 
-import { api } from '../../../services/api';
-
 import { ButtonIcon, MapContainer, MapItem, MapFooter, Icons } from '../styles';
 import DeleteOrphanageConfirmed from '../EditOrphanage/DeleteOrphanageConfirmed';
-
-interface IOrphanages {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  about: string;
-  instructions: string;
-  opening_hours: string;
-  open_on_weekends: boolean;
-  images: [
-    {
-      id: number;
-      url: string;
-    }
-  ];
-}
+import OrphanagesRepository, {
+  IOrphanage,
+} from '../../../repositories/orphanages';
 
 const Orphanages: React.FC = () => {
-  const [orphanages, setOrphanages] = useState<IOrphanages[]>([]);
+  const [orphanages, setOrphanages] = useState<IOrphanage[] | undefined>([]);
   const [displayFeedback, setDisplayFeedback] = useState(false);
 
-  async function handleClickToDelete(id: number) {
-    const response = await api.delete(`/orphanages/${id}`);
-    if (response.status === 200) {
+  async function handleClickToDelete(id: string) {
+    const response = await OrphanagesRepository.delete(id);
+    if (response?.status === 200) {
       setDisplayFeedback(true);
     }
-    const new_orphanages = orphanages.filter((orphanage: IOrphanages) => {
+    const new_orphanages = orphanages?.filter((orphanage: IOrphanage) => {
       return orphanage.id !== id ? orphanage : null;
     });
     setOrphanages(new_orphanages);
@@ -45,8 +29,8 @@ const Orphanages: React.FC = () => {
 
   useEffect(() => {
     async function getAllOrphanages() {
-      const response = await api.get('/orphanages');
-      setOrphanages(response.data);
+      const response = await OrphanagesRepository.index();
+      setOrphanages(response?.data);
     }
     getAllOrphanages();
   }, []);
@@ -61,7 +45,7 @@ const Orphanages: React.FC = () => {
       isPendentPage={false}
     >
       <MapContainer>
-        {orphanages.map((orphanage) => (
+        {orphanages?.map((orphanage) => (
           <MapItem key={orphanage.id}>
             <Map
               className="map"

@@ -1,34 +1,19 @@
 import React, { useState } from 'react';
 import { FiCheck } from 'react-icons/fi';
 
-import Orphanage from '../../../components/OrphanageForm';
-import { api } from '../../../services/api';
+import OrphanageForm from '../../../components/OrphanageForm';
+import OrphanagesRepository, {
+  IOrphanage,
+} from '../../../repositories/orphanages';
 import CreateOrphanagePendent from './CreateOrphanagePendent';
 
 import { ContainerButtons, ConfirmButton } from './styles';
 
-interface IOrphanage {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  about: string;
-  instructions: string;
-  opening_hours: string;
-  open_on_weekends: boolean;
-  images: [
-    {
-      id?: number;
-      url?: string;
-    }
-  ];
-}
-
 export default function CreateOrphanage() {
-  const [displayFeedback, setDisplayFeedback] = useState(false as boolean);
+  const [displayFeedback, setDisplayFeedback] = useState(false);
 
-  const orphanage = {
-    id: 0,
+  const defaultOrphanage: IOrphanage = {
+    id: '',
     name: '',
     latitude: 0,
     longitude: 0,
@@ -40,8 +25,8 @@ export default function CreateOrphanage() {
   };
 
   async function createOrphanage(orphanage: FormData) {
-    const { status } = await api.post(`/orphanages`, orphanage);
-    if (status === 201) {
+    const response = await OrphanagesRepository.create(orphanage);
+    if (response?.status === 201) {
       setDisplayFeedback(true);
     }
   }
@@ -49,13 +34,13 @@ export default function CreateOrphanage() {
   return displayFeedback ? (
     <CreateOrphanagePendent />
   ) : (
-    <Orphanage orphanage={orphanage} action={createOrphanage}>
+    <OrphanageForm orphanage={defaultOrphanage} action={createOrphanage}>
       <ContainerButtons>
         <ConfirmButton type="submit">
           <FiCheck style={{ marginRight: 10 }} size={20} color="#FFF" />
           Confirmar
         </ConfirmButton>
       </ContainerButtons>
-    </Orphanage>
+    </OrphanageForm>
   );
 }

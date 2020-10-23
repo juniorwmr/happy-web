@@ -6,8 +6,6 @@ import { FiArrowRight } from 'react-icons/fi';
 import Dashboard from '../../../components/Dashboard';
 import { mapIcon } from '../../../utils/mapIcon';
 
-import { api } from '../../../services/api';
-
 import {
   ButtonIcon,
   MapContainer,
@@ -17,31 +15,17 @@ import {
   ImgContainer,
 } from '../styles';
 import LogoBW from '../../../images/logo-bw.svg';
-
-interface IOrphanages {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  about: string;
-  instructions: string;
-  opening_hours: string;
-  open_on_weekends: boolean;
-  images: [
-    {
-      id: number;
-      url: string;
-    }
-  ];
-}
+import OrphanagesRepository, {
+  IOrphanage,
+} from '../../../repositories/orphanages';
 
 const PendentOrphanages: React.FC = () => {
-  const [orphanages, setOrphanages] = useState<IOrphanages[]>([]);
+  const [orphanages, setOrphanages] = useState<IOrphanage[] | undefined>([]);
 
   useEffect(() => {
     async function getAllOrphanages() {
-      const response = await api.get('/orphanages/pendents');
-      setOrphanages(response.data);
+      const response = await OrphanagesRepository.findUnChecked();
+      setOrphanages(response?.data);
     }
     getAllOrphanages();
   }, []);
@@ -49,18 +33,18 @@ const PendentOrphanages: React.FC = () => {
   return (
     <Dashboard
       title="Orfanatos pendentes"
-      orphanagesLength={orphanages.length}
+      orphanagesLength={orphanages?.length}
       isOrphanagesPage={false}
       isPendentPage={true}
     >
-      {orphanages.length <= 0 ? (
+      {orphanages && orphanages.length <= 0 ? (
         <ImgContainer>
           <img src={LogoBW} alt="Logo" />
           <p>Nenhum no momento</p>
         </ImgContainer>
       ) : (
         <MapContainer>
-          {orphanages.map((orphanage) => (
+          {orphanages?.map((orphanage) => (
             <MapItem key={orphanage.id}>
               <Map
                 className="map"
