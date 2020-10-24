@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Loader from 'react-loader-spinner';
 import { FiCheck } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
@@ -15,20 +16,30 @@ interface IOrphanageProps {
 export default function EditOrphanage() {
   const history = useHistory();
   const { orphanage } = history.location.state as IOrphanageProps;
+  const [loading, setLoading] = useState(false);
+
   async function EditOrphanage(orphanage: FormData) {
+    setLoading(true);
     orphanage.append('check', String(true));
     const response = await OrphanagesRepository.update(orphanage);
     if (response?.status === 204) {
       history.push('/dashboard/orphanages');
     }
+    setLoading(false);
   }
 
   return (
     <Orphanage orphanage={orphanage} action={EditOrphanage}>
       <ContainerButtons>
         <ConfirmButton type="submit">
-          <FiCheck style={{ marginRight: 10 }} size={20} color="#FFF" />
-          Confirmar
+          {!loading ? (
+            <>
+              <FiCheck style={{ marginRight: 10 }} size={20} color="#FFF" />
+              Confirmar
+            </>
+          ) : (
+            <Loader type="Puff" color="#cecece" height={40} width={40} />
+          )}
         </ConfirmButton>
       </ContainerButtons>
     </Orphanage>

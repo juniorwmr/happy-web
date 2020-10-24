@@ -14,15 +14,16 @@ const CreateUser: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isEyeActive, setIsEyeActive] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmitRegisterUser(event: FormEvent) {
     event.preventDefault();
-
+    setLoading(true);
     const response = await UsersRepository.create({ name, email, password });
     if (response?.status === 201) {
-      alert('Cadastro efetuado com sucesso!');
       history.push('/signin');
     }
+    setLoading(false);
   }
 
   return (
@@ -86,6 +87,7 @@ const CreateUser: React.FC = () => {
         </Fieldset>
         <Button
           name="Enviar"
+          loading={loading}
           isActive={name && email && password ? true : false}
         />
       </Form>

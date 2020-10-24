@@ -3,6 +3,7 @@ import styled from 'styled-components';
 interface IButtonProps {
   name: string;
   isActive: boolean;
+  loading: boolean;
 }
 
 export const ButtonStyle = styled.button<IButtonProps>`
@@ -14,7 +15,7 @@ export const ButtonStyle = styled.button<IButtonProps>`
   border-radius: 20px;
   color: #ffffff;
   font-weight: 800;
-  opacity: ${(props) => (props.isActive ? 1.0 : 0.7)};
+  opacity: ${(props) => (!props.isActive || props.loading ? 0.7 : 1.0)};
   outline: none;
 
   display: flex;

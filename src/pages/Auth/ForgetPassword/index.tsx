@@ -8,15 +8,17 @@ import { Form, Fieldset, Title, Field, Input } from './styles';
 
 const ForgetPassword: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmitForgetPassword(event: FormEvent) {
     event.preventDefault();
-
+    setLoading(true);
     const response = await UsersRepository.ForgetPassword(email);
 
     if (response?.status === 200) {
       alert('Enviamos um e-mail para você para recuperar a senha.');
     }
+    setLoading(false);
   }
 
   return (
@@ -41,7 +43,11 @@ const ForgetPassword: React.FC = () => {
             />
           </Field>
         </Fieldset>
-        <Button name="Enviar" isActive={email ? true : false} />
+        <Button
+          loading={loading}
+          name="Enviar"
+          isActive={email ? true : false}
+        />
       </Form>
     </Auth>
   );

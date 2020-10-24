@@ -20,6 +20,7 @@ export const DeleteButton = styled.button`
   color: #ffffff;
   font-weight: 800;
   margin-right: 20px;
+  outline: none;
 
   display: flex;
   justify-content: center;
@@ -41,6 +42,7 @@ export const ConfirmButton = styled.button`
   border-radius: 20px;
   color: #ffffff;
   font-weight: 800;
+  outline: none;
 
   display: flex;
   justify-content: center;

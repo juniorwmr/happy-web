@@ -19,6 +19,7 @@ export const ConfirmButton = styled.button`
   border-radius: 20px;
   color: #ffffff;
   font-weight: 800;
+  outline: none;
 
   display: flex;
   justify-content: center;

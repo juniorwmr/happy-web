@@ -27,19 +27,20 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checked, setChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function handleSignInForm(event: FormEvent) {
     event.preventDefault();
-
+    setLoading(true);
     const response = await UsersRepository.Authenticate({ email, password });
     if (response?.data.auth) {
-      alert('Login efetuado com sucesso!');
       setSigned(true);
       if (checked) {
         login(response?.data.token);
       }
       history.push('/dashboard/orphanages');
     }
+    setLoading(false);
   }
 
   return (
@@ -87,7 +88,11 @@ const SignIn: React.FC = () => {
             Esqueci minha senha
           </ForgetPassword>
         </Options>
-        <Button name="Entrar" isActive={email && password ? true : false} />
+        <Button
+          name="Entrar"
+          loading={loading}
+          isActive={email && password ? true : false}
+        />
       </Form>
       <Register to="/register" className="register">
         Cadastre-se

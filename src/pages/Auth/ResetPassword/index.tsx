@@ -20,9 +20,11 @@ const ResetPassword: React.FC = () => {
     isEyeActive: false,
   });
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmitResetPassword(event: FormEvent) {
     event.preventDefault();
+    setLoading(true);
     if (password.text === confirmPassword.text) {
       const response = await UsersRepository.ResetPassword(params.token, {
         email,
@@ -30,9 +32,9 @@ const ResetPassword: React.FC = () => {
       });
 
       if (response?.status === 202) {
-        alert('Senha alterada com sucesso!');
         history.push('/signin');
       }
+      setLoading(false);
     }
   }
 
@@ -125,6 +127,7 @@ const ResetPassword: React.FC = () => {
           </Field>
         </Fieldset>
         <Button
+          loading={loading}
           name="Enviar"
           isActive={password.text && confirmPassword.text ? true : false}
         />
