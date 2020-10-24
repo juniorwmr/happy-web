@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { useHistory, useParams } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
@@ -21,6 +22,7 @@ const ResetPassword: React.FC = () => {
   });
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const notify = () => toast.error('Não foi possível criar uma nova senha!');
 
   async function handleSubmitResetPassword(event: FormEvent) {
     event.preventDefault();
@@ -32,7 +34,10 @@ const ResetPassword: React.FC = () => {
       });
 
       if (response?.status === 202) {
+        alert('Parabéns! Você atualizou sua senha.');
         history.push('/signin');
+      } else {
+        notify();
       }
       setLoading(false);
     }
@@ -54,6 +59,7 @@ const ResetPassword: React.FC = () => {
 
   return (
     <Auth pushTo="/signin">
+      <ToastContainer style={{ fontSize: 15, fontFamily: 'sans-serif' }} />
       <Form onSubmit={(event) => handleSubmitResetPassword(event)}>
         <Fieldset>
           <Title>Redefinição de senha</Title>

@@ -7,6 +7,7 @@ import { AuthProvider } from './context/auth';
 import GlobalStyle from './styles/GlobalStyle';
 import 'leaflet/dist/leaflet.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
   return (

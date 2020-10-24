@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Button from '../../../components/Button';
 import Auth from '../../../components/Auth';
@@ -9,6 +10,7 @@ import { Form, Fieldset, Title, Field, Input } from './styles';
 const ForgetPassword: React.FC = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const notify = () => toast.error('Não foi possível recuperar a senha!');
 
   async function handleSubmitForgetPassword(event: FormEvent) {
     event.preventDefault();
@@ -17,12 +19,15 @@ const ForgetPassword: React.FC = () => {
 
     if (response?.status === 200) {
       alert('Enviamos um e-mail para você para recuperar a senha.');
+    } else {
+      notify();
     }
     setLoading(false);
   }
 
   return (
     <Auth pushTo="/signin">
+      <ToastContainer style={{ fontSize: 15, fontFamily: 'sans-serif' }} />
       <Form onSubmit={(event) => handleSubmitForgetPassword(event)}>
         <Fieldset>
           <Title>Esqueci minha senha</Title>

@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 
 import { Form, Fieldset, Title, Field, Input, EyeContainer } from './styles';
@@ -15,6 +16,7 @@ const CreateUser: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isEyeActive, setIsEyeActive] = useState(false);
   const [loading, setLoading] = useState(false);
+  const notify = () => toast.error('Não foi possível criar o usuário!');
 
   async function handleSubmitRegisterUser(event: FormEvent) {
     event.preventDefault();
@@ -22,12 +24,15 @@ const CreateUser: React.FC = () => {
     const response = await UsersRepository.create({ name, email, password });
     if (response?.status === 201) {
       history.push('/signin');
+    } else {
+      notify();
     }
     setLoading(false);
   }
 
   return (
     <Auth pushTo="/signin">
+      <ToastContainer style={{ fontSize: 15, fontFamily: 'sans-serif' }} />
       <Form onSubmit={(event) => handleSubmitRegisterUser(event)}>
         <Fieldset>
           <Title>Cadastrar usuário</Title>

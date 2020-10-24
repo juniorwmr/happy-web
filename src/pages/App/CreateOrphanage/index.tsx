@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { FiCheck } from 'react-icons/fi';
 import Loader from 'react-loader-spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import { FiCheck } from 'react-icons/fi';
 
 import OrphanageForm from '../../../components/OrphanageForm';
 import OrphanagesRepository, {
@@ -27,10 +28,14 @@ export default function CreateOrphanage() {
   };
 
   async function createOrphanage(orphanage: FormData) {
+    const notify = () =>
+      toast.error('Não foi possível cadastrar, tente novamente!');
     setLoading(true);
     const response = await OrphanagesRepository.create(orphanage);
     if (response?.status === 201) {
       setDisplayFeedback(true);
+    } else {
+      notify();
     }
     setLoading(false);
   }
@@ -39,6 +44,7 @@ export default function CreateOrphanage() {
     <CreateOrphanagePendent />
   ) : (
     <OrphanageForm orphanage={defaultOrphanage} action={createOrphanage}>
+      <ToastContainer style={{ fontSize: 15, fontFamily: 'sans-serif' }} />
       <ContainerButtons>
         <ConfirmButton type="submit">
           {!loading ? (

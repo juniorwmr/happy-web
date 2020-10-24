@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Loader from 'react-loader-spinner';
+import { ToastContainer, toast } from 'react-toastify';
 import { FiCheck, FiXCircle } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
@@ -20,17 +21,28 @@ export default function ApproveOrphanage() {
   const [buttonAction, setButtonAction] = useState<boolean>();
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [loadingAproove, setLoadingAproove] = useState(false);
+  const notify = (props: any) => toast.error(props.msg);
 
   async function EditOrphanage(orphanage: FormData) {
     if (!buttonAction) {
       setLoadingDelete(true);
-      await OrphanagesRepository.delete(orphanage.get('id') as string);
-      history.push('/dashboard/pendents');
+      const response = await OrphanagesRepository.delete(
+        orphanage.get('id') as string
+      );
+      if (response?.status === 200) {
+        history.push('/dashboard/pendents');
+      } else {
+        notify('Não foi possível deletar, tente novamente!');
+      }
     } else {
       setLoadingAproove(true);
       orphanage.append('check', true as any);
-      await OrphanagesRepository.update(orphanage);
-      history.push('/dashboard/orphanages');
+      const response = await OrphanagesRepository.update(orphanage);
+      if (response?.status === 204) {
+        history.push('/dashboard/orphanages');
+      } else {
+        notify('Não foi possível aprovar, tente novamente!');
+      }
     }
     setLoadingDelete(false);
     setLoadingAproove(false);
@@ -38,6 +50,7 @@ export default function ApproveOrphanage() {
 
   return (
     <Orphanage orphanage={orphanage} action={EditOrphanage}>
+      <ToastContainer style={{ fontSize: 15, fontFamily: 'sans-serif' }} />
       <ContainerButtons>
         <DeleteButton type="submit" onClick={() => setButtonAction(false)}>
           {!loadingDelete ? (

@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -28,6 +29,7 @@ const SignIn: React.FC = () => {
   const [password, setPassword] = useState('');
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
+  const notify = () => toast.error('Não foi possível acessar o painel!');
 
   async function handleSignInForm(event: FormEvent) {
     event.preventDefault();
@@ -39,12 +41,15 @@ const SignIn: React.FC = () => {
         login(response?.data.token);
       }
       history.push('/dashboard/orphanages');
+    } else {
+      notify();
     }
     setLoading(false);
   }
 
   return (
     <Auth pushTo="/">
+      <ToastContainer style={{ fontSize: 15, fontFamily: 'sans-serif' }} />
       <Form onSubmit={handleSignInForm}>
         <Fieldset>
           <Title>Fazer login</Title>
