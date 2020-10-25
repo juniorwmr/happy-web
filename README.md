@@ -2,16 +2,29 @@
   <img alt="Happy" title="Happy" src="./public/capa_happy.png" width="1000px" />
 </h1>
 
-## Descrição do Projeto
+## 💻 Projeto
 
 <p align="center"></p>
 <h1 align="center">
     <a href="https://pt-br.reactjs.org/">🔗 React</a>
 </h1>
-<p align="center">🚀 O projeto está sendo desenvolvimento conforme o WorkShop Next Level Week.</p>
-<p align="center">É um projeto para gestão de visitas ao orfanato <strong>Happy</strong>.</p>
-<p align="center">Este projeto concentra-se na parte FrontEnd (WEB) da aplicação <strong>Happy</strong>.</p>
-<p align="center"><strong>Esta aplicação usa <a href="https://www.typescriptlang.org/">Typescript</a></strong>.</p>
+<p align="center"><strong>Happy 2.0</strong> 🔥</p>
+<p align="center">É um projeto de gestão de visitas de orfanatos de Rio Branco - Acre.</p>
+<p align="center">Este, concentra-se na parte Frontend (WEB) da aplicação <strong>Happy 2.0</strong>.</p>
+<p align="center"><i>Esta aplicação usa <a href="https://www.typescriptlang.org/">Typescript</a></i>.</p>
+
+### ✅ Features
+
+- [x] Cadastro de orfanato
+- [x] Editar orfanato
+- [x] Remover orfanato
+- [x] Aprovar cadastro de orfanatos
+- [x] Cadastro de usuário
+- [x] Recuperar senha
+- [x] Login
+- [x] Visualizar orfanatos pendentes
+- [x] Visualizar todos os orfanatos cadastrados
+- [x] Logout
 
 ### Pré-requisitos
 
@@ -31,7 +44,9 @@ $ cd happy-web
 # Instale as dependências
 $ npm install
 
-# Crie um arquivo na pasta raiz e adicione o seu token do MAPBOX na variável REACT_APP_MAPBOX_TOKEN
+# Crie um arquivo na pasta raiz e adicionar as seguintes variáveis:
+## REACT_APP_API_URL - coloque o endereço de nossa API "https://happy-acre-backend.herokuapp.com"
+## REACT_APP_MAPBOX_TOKEN - coloque o token fornecido pela Mapbox
 $ touch .env
 
 # Execute a aplicação em modo de desenvolvimento
