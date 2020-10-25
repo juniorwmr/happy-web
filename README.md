@@ -7,7 +7,7 @@
 
 <p align="center"></p>
 <h1 align="center">
-    <a href="https://pt-br.reactjs.org/">🔗 React</a>
+    <a href="https://pt-br.reactjs.org/">🔗 Reactjs</a>
 </h1>
 <p align="center"><strong>Happy 2.0</strong> 🔥</p>
 <p align="center">É um projeto de gestão de visitas de orfanatos de Rio Branco - Acre.</p>
