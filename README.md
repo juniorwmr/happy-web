@@ -1,5 +1,6 @@
 <h1 align="center">
   <img alt="Happy" title="Happy" src="./public/capa_happy.png" width="1000px" />
+    <img alt="License" src="https://img.shields.io/cran/l/devtools">
 </h1>
 
 ## 💻 Projeto
@@ -59,6 +60,7 @@ $ yarn start
 As seguintes ferramentas foram usadas na construção do projeto:
 
 - [ReactJS](https://pt-br.reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ### Autor
 
